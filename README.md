@@ -31,3 +31,9 @@ to compute directions for pointing amateur radio antennae.
 `proc-aero.sh` is my bash script to scrape the files from wget.
 
 `latlong-us-aero.txt` is the result.
+
+## work in progress
+
+```
+python2 latlong-to-web.py < latlong-us-aero.txt
+```
