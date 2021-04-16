@@ -1,11 +1,7 @@
 # lat-long
-latitude/longitude data
+latitude/longitude data and azimuth calculator.
 
-## TL;DR
-`less latlong-us-aero.txt`
-
-What appear to be decimal numbers for latitude & longitude are actually
-encoded as `( 10000*degress + 100*minutes + seconds )`.
+DEMO: http://yak.net/azimuth.html
 
 ## US Airport Data
 
@@ -26,14 +22,22 @@ approximate latitude and longitude of each airport.
 
 In my application, I don't really care about airports.
 I just want rough coordinates for some points nearby cities,
+and by averaging the cities to get a point for each state,
 to compute directions for pointing amateur radio antennae.
 
 `proc-aero.sh` is my bash script to scrape the files from wget.
 
 `latlong-us-aero.txt` is the result.
 
-## work in progress
+## Scripts
 
 ```
 python2 latlong-to-web.py < latlong-us-aero.txt
 ```
+
+Take that output and paste it into `azimuth.html`
+where it belongs.
+
+## work in progress
+
+. . .
