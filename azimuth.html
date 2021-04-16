@@ -1,0 +1,174 @@
+<html>
+  <head>
+    <script>
+
+// Thanks to Shri for finding bearing().
+// Converts from degrees to radians.
+function toRadians(degrees) {
+  return degrees * Math.PI / 180;
+};
+// Converts from radians to degrees.
+function toDegrees(radians) {
+  return radians * 180 / Math.PI;
+}
+// https://stackoverflow.com/questions/46590154/calculate-bearing-between-2-points-with-javascript
+function bearing(startLat, startLng, destLat, destLng){
+  startLat = toRadians(startLat);
+  startLng = toRadians(startLng);
+  destLat = toRadians(destLat);
+  destLng = toRadians(destLng);
+
+  y = Math.sin(destLng - startLng) * Math.cos(destLat);
+  x = Math.cos(startLat) * Math.sin(destLat) -
+        Math.sin(startLat) * Math.cos(destLat) * Math.cos(destLng - startLng);
+  brng = Math.atan2(y, x);
+  brng = toDegrees(brng);
+  return (brng + 360) % 360;
+}
+
+tuples = [
+['A', 'ALABAMA', 32.62392361111111, -86.89513888888888],
+['A', 'ALASKA', 62.06252136752138, -153.33253205128202],
+['A', 'AMERICAN SAMOA', -14.243518518518519, -169.93472222222223],
+['A', 'ARIZONA', 33.874292929292935, -111.57502525252525],
+['A', 'ARKANSAS', 35.1214734299517, -92.72809178743961],
+['C', 'CALIFORNIA', 36.271697916666675, -119.77802777777777],
+['C', 'CHILE', -33.390277777777776, -70.78583333333333],
+['C', 'COLORADO', 39.162962962962965, -105.30418518518519],
+['C', 'CONNECTICUT', 41.48513888888888, -72.75421296296295],
+['D', 'DELAWARE', 39.2962037037037, -75.56296296296296],
+['D', 'DISTRICT OF COLUMBIA', 38.94444444444444, -77.45555555555556],
+['F', 'FEDERATED STATES OF MICRONESIA', 7.325625, 152.77305555555554],
+['F', 'FLORIDA', 27.93439814814815, -81.71118827160494],
+['G', 'GEORGIA', 32.555099206349205, -83.14855158730158],
+['G', 'GUAM ISLAND', 13.483333333333333, 144.79583333333332],
+['H', 'HAWAII', 20.84497685185185, -156.86319444444447],
+['I', 'IDAHO', 44.48508547008547, -115.34989316239316],
+['I', 'ILLINOIS', 40.257585470085466, -89.04557692307692],
+['I', 'INDIANA', 40.09220588235294, -86.25952614379084],
+['I', 'IOWA', 41.769984567901226, -92.82395061728396],
+['K', 'KANSAS', 38.012575757575746, -98.05733585858584],
+['K', 'KENTUCKY', 37.94222222222222, -85.91236111111111],
+['L', 'LOUISIANA', 30.827762345679016, -92.09913580246912],
+['M', 'MAINE', 44.57436507936507, -69.2461507936508],
+['M', 'MARSHALL ISLANDS', 7.064722222222222, 171.27194444444447],
+['M', 'MARYLAND', 38.991416666666666, -76.73619444444444],
+['M', 'MASSACHUSETTS', 42.109777777777786, -71.15559259259258],
+['M', 'MICHIGAN', 43.35424897119342, -84.89301440329217],
+['M', 'MINNESOTA', 45.96762152777777, -93.8023611111111],
+['M', 'MISSISSIPPI', 32.42470238095238, -89.65978174603174],
+['M', 'MISSOURI', 38.19571581196581, -92.46711538461538],
+['M', 'MONTANA', 46.83197916666667, -110.30923611111112],
+['N', 'NEBRASKA', 41.3612091503268, -99.13406862745099],
+['N', 'NEVADA', 39.137103174603176, -117.19265873015874],
+['N', 'NEW HAMPSHIRE', 43.21099206349207, -71.41825396825398],
+['N', 'NEW JERSEY', 40.02531746031746, -74.59972222222223],
+['N', 'NEW MEXICO', 34.7312037037037, -106.18015432098767],
+['N', 'NEW YORK', 42.563347953216365, -75.42115497076024],
+['N', 'NORTH CAROLINA', 35.46053418803419, -79.38756410256411],
+['N', 'NORTH DAKOTA', 47.39182539682539, -99.48670634920636],
+['N', 'NORTHERN MARIANA ISLANDS', 14.763240740740741, 145.5298148148148],
+['O', 'OHIO', 40.442794117647054, -82.81449346405228],
+['O', 'OKLAHOMA', 35.554312169312176, -97.69152116402117],
+['O', 'OREGON', 44.585250000000016, -121.49152777777776],
+['P', 'PENNSYLVANIA', 40.75387566137566, -77.74166666666666],
+['P', 'PUERTO RICO', 18.30375, -66.73465277777777],
+['R', 'REPUBLIC OF PALAU', 7.367222222222222, 134.54416666666665],
+['R', 'RHODE ISLAND', 41.459583333333335, -71.55527777777777],
+['S', 'SOUTH CAROLINA', 33.56823232323232, -80.7272474747475],
+['S', 'SOUTH DAKOTA', 44.19475308641975, -98.45901234567901],
+['T', 'TENNESSEE', 35.82898148148148, -86.01],
+['T', 'TEXAS', 31.235857638888895, -98.10561805555557],
+['U', 'U.S. VIRGIN ISLANDS', 18.33722222222222, -64.97333333333333],
+['U', 'UTAH', 39.96687500000001, -112.18071759259259],
+['V', 'VERMONT', 44.00711111111111, -73.00166666666667],
+['V', 'VIRGINIA', 37.545117521367516, -78.80420940170939],
+['W', 'WASHINGTON', 47.470980392156854, -121.45919934640524],
+['W', 'WEST VIRGINIA', 38.65247863247863, -80.96649572649575],
+['W', 'WISCONSIN', 44.25102339181287, -89.46071637426898],
+['W', 'WYOMING', 43.27791666666667, -107.43178240740741],
+]
+
+db = {}  // category :-> region :-> [ lat , lon ]
+for (const t of tuples) {
+  [cat, region, lat, lon] = t
+
+  if (!(cat in db)) {
+    db[cat] = {}
+  }
+  db[cat][region] = [lat, lon]
+}
+function showDict(d) {
+    s = '{'
+    for (const k in d) {
+      s = s + ' [' + k.toString() + '] ' + d[k].toString()
+    }
+    return s + '}'
+}
+function Show(s) {
+        document.getElementById('main').innerHTML = s + '\n'
+}
+function Next(_from, _to) {
+  Run(_from, _to)
+}
+const alfa = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+function AskFromCat(_from, _to) {
+  s = 'From where? '
+  for (const i in alfa) {
+    c = alfa[i]
+    if (db[c]) {
+      s += ' <input type="button" value="' + c + '" onClick=\'Next("' + c + '", "")\'>\n';
+    }
+  }
+  return s
+}
+function AskFromRegion(_from, _to) {
+  s = 'From where? '
+  for (const region in db[_from]) {
+    s += ' <input type="button" value="' + region + '" onClick=\'Next("' + region + '", "")\'>\n';
+  }
+  return s
+}
+function AskToCat(_from, _to) {
+  s = 'From ' + _from + ', To where? '
+  for (const i in alfa) {
+    c = alfa[i]
+    if (db[c]) {
+      s += ' <input type="button" value="' + c + '" onClick=\'Next("' + _from + '", "' + c + '")\'>\n';
+    }
+  }
+  return s
+}
+function ShowAnswers(_from, _to) {
+  from_ll = db[_from[0]][_from]
+  s = 'Azimuth from ' + _from + ' to <ul>'
+  for (const region in db[_to]) {
+    to_ll = db[_to][region]
+    b = bearing(from_ll[0], from_ll[1], to_ll[0], to_ll[1])
+    s += '<li> ' + region + ' is ' + Math.trunc(b) + '. <br>\n';
+  }
+  return s + '</ul>\n'
+}
+function ResetButton() {
+  return '<input type="button" value="Reset" onClick="Next(null,null)">\n'
+}
+function Run(_from, _to) {
+  if (_from==null || _from=="") {
+    Show(AskFromCat(_from, _to))
+  } else if (_from.length == 1) {
+    Show(AskFromRegion(_from, _to))
+  } else if (_to==null || _to=="") {
+    Show(AskToCat(_from, _to))
+  } else {
+    Show(ShowAnswers(_from, _to) + '\n<hr>\n' + AskToCat(_from, null) + '\n<hr>\n' + ResetButton())
+  }
+}
+    </script>
+
+  </head>
+  <body onload="Run(null,null)">
+    <div id=main>
+      Is javascript broken?
+    </div>
+  </body>
+</html>
